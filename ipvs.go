@@ -290,12 +290,10 @@ func assembleDestinationInterface(attrs []syscall.NetlinkRouteAttr) (*Destinatio
 	}
 
 	switch d.AddressFamily {
-	case "IPv4":
-		d.Address = (net.IP)(addr[:4]).String()
 	case "IPv6":
 		d.Address = (net.IP)(addr[:16]).String()
 	default:
-		return nil, fmt.Errorf("invalid IP address %v", addr)
+		d.Address = (net.IP)(addr[:4]).String()
 	}
 
 	return &d, nil
